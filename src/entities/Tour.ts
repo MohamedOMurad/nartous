@@ -1,4 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { StartLocationI } from './utils/interface/ToursI';
 
 enum Difficulty {
   EASY = 'easy',
@@ -39,4 +40,6 @@ export class Tours extends BaseEntity {
   'images': string[];
   @Column('text', { array: true })
   'startDates': Date[];
+  @Column({ nullable: true })
+  startLocation: StartLocationI;
 }
