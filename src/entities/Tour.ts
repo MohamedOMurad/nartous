@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Location } from './Location';
 import { StartLocationI } from './utils/interface/ToursI';
 
 enum Difficulty {
@@ -7,39 +14,61 @@ enum Difficulty {
   HARD = 'hard',
 }
 @Entity('Tours')
-export class Tours extends BaseEntity {
+export class Tour extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  _id: number;
+
   @Column({ type: 'varchar', length: 255 })
   name: string;
-  @Column()
+
+  @Column({ nullable: true })
+  duration: number;
+
+  @Column({ nullable: true })
   maxGroupSize: number;
+
   @Column({
     type: 'enum',
     enum: Difficulty,
     default: Difficulty.EASY,
+    nullable: true,
   })
   difficulty: Difficulty;
-  @Column()
-  'ratingsAverage': number;
-  @Column()
-  'ratingsQuantity': number;
+
+  @Column('text', { array: true, nullable: true })
+  guides: string[];
+
   @Column({
     type: 'decimal',
     precision: 10,
     scale: 2,
   })
-  'price': string;
-  @Column()
-  'summary': string;
-  @Column()
-  'description': string;
-  @Column()
-  'imageCover': string;
-  @Column('text', { array: true })
-  'images': string[];
-  @Column('text', { array: true })
-  'startDates': Date[];
+  price: string;
+
+  @Column({ nullable: true })
+  summary: string;
+
+  @Column({ nullable: true })
+  description: string;
+
+  @Column({ nullable: true })
+  imageCover: string;
+
+  @OneToMany(() => Location, (location) => location.tour, { cascade: true })
+  locations: Location[];
+
+  @Column('text', { array: true, nullable: true })
+  startDates: Date[];
+
   @Column({ nullable: true })
   startLocation: StartLocationI;
+
+  @Column({ default: 2.5 })
+  ratingsAverage: number;
+
+  @Column({ default: 0 })
+  ratingsQuantity: number;
+
+  @Column('text', { array: true })
+  images: string[];
 }

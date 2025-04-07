@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Tour } from './Tour';
 
 @Entity('Location')
 export class Location extends BaseEntity {
@@ -12,4 +19,6 @@ export class Location extends BaseEntity {
   coordinates: number[];
   @Column()
   day: number;
+  @ManyToOne(() => Tour, (tour) => tour.locations, { onDelete: 'CASCADE' })
+  tour: Tour;
 }
