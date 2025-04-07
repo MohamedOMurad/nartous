@@ -13,7 +13,7 @@ enum Difficulty {
   MEDIUM = 'medium',
   DIFFICULT = 'difficult',
 }
-@Entity('Tours')
+@Entity()
 export class Tour extends BaseEntity {
   @PrimaryGeneratedColumn()
   _id: number;
