@@ -11,7 +11,7 @@ import { StartLocationI } from './utils/interface/ToursI';
 enum Difficulty {
   EASY = 'easy',
   MEDIUM = 'medium',
-  HARD = 'hard',
+  DIFFICULT = 'difficult',
 }
 @Entity('Tours')
 export class Tour extends BaseEntity {
@@ -60,15 +60,15 @@ export class Tour extends BaseEntity {
   @Column('text', { array: true, nullable: true })
   startDates: Date[];
 
-  @Column({ nullable: true })
+  @Column({ type: 'jsonb', nullable: true })
   startLocation: StartLocationI;
 
-  @Column({ default: 2.5 })
-  ratingsAverage: number;
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  ratingsAverage: string;
 
   @Column({ default: 0 })
   ratingsQuantity: number;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, nullable: true })
   images: string[];
 }
