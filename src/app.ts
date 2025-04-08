@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
-
-const tourRouter = require('./routes/tourRoutes');
+import tourRouter from './routes/tourRoutes';
+import UserRouter from './routes/userRoutes';
 
 const app = express();
 
@@ -12,9 +12,8 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 
-
 // 3) ROUTES
 app.use('/api/v1/tours', tourRouter);
-// app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users', UserRouter);
 
 module.exports = app;

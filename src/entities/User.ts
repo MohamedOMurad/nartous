@@ -12,10 +12,10 @@ export class User extends BaseEntity {
   })
   @IsEmail({}, { message: 'please provide a valid email' })
   email: string;
-  @Column()
+  @Column({ nullable: true })
   photo: string;
   @Column()
   password: string;
-  @Column()
+  @Column({ nullable: true })
   passwordConfirm: string;
 }

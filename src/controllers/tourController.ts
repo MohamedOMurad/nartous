@@ -1,7 +1,6 @@
 // const fs = require('fs');
 
 import { Request, Response } from 'express';
-import { AppDataSource } from '../database/data-source';
 import { Tour } from '../entities/Tour';
 
 // exports.checkID = (req, res, next, val) => {
@@ -26,9 +25,8 @@ import { Tour } from '../entities/Tour';
 //   next();
 // };
 
-exports.getAllTours = async (req: Request, res: Response) => {
+export const getAllTours = async (req: Request, res: Response) => {
   try {
-
     const tours = await Tour.find();
 
     res.status(200).json({
